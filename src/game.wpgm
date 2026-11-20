@@ -1,0 +1,19 @@
+import wollok.game.*
+import sistemas.*
+import panda_snack.*
+
+
+
+program pandaSnackGame {
+  game.title("PandaSnack")
+  game.width(5) //ancho
+  game.height(7) //altura
+  game.cellSize(175) //px
+  game.boardGround("pantalla_inicio.png") //pantalla inicial
+  
+	pandaSnack.pantallaInicial()
+
+  game.start()
+
+
+}
