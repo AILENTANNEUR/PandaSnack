@@ -1,4 +1,4 @@
-import sistemas.sistemaDeFondo.*
+import sistemaDeFondo.*
 
 class Efecto {
     const property imagen

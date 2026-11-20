@@ -1,10 +1,9 @@
 import wollok.game.*
-import sistemas.*
 import panda_snack.*
 
 
 
-program game {
+program pandaSnackGame {
   game.title("PandaSnack")
   game.width(5) //ancho
   game.height(7) //altura

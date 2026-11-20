@@ -1,6 +1,6 @@
 import wollok.game.*
 import panda.*
-import sistemas.sistemaSonido.*
+import sistemaSonido.*
 import niveles.*
 import efectos.*
 

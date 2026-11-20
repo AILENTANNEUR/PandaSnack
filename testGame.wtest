@@ -1,13 +1,13 @@
 import wollok.game.*
-import src.panda.*
-import src.panda_snack.*
-import src.puntos.*
-import src.comidas.*
-import src.sistemas.sistemaDirecciones.*
-import src.sistemas.sistemaDeFondo.*
-import src.sistemas.sistemaSonido.*
-import src.selector.*
-import src.niveles.*
+import panda.*
+import panda_snack.*
+import puntos.*
+import comidas.*
+import sistemaDirecciones.*
+import sistemaDeFondo.*
+import sistemaSonido.*
+import selector.*
+import niveles.*
 
 ///////////////////////
 describe "Panda" {

@@ -1,8 +1,8 @@
 import wollok.game.*
 import panda.*
-import sistemas.sistemaSonido.*
-import sistemas.sistemaDeFondo.*
-import sistemas.sistemaDirecciones.*
+import sistemaSonido.*
+import sistemaDeFondo.*
+import sistemaDirecciones.*
 import comidas.*
 import puntos.*
 import niveles.*
