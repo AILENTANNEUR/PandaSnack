@@ -4,7 +4,7 @@ import panda_snack.*
 
 
 
-program pandaSnackGame {
+program game {
   game.title("PandaSnack")
   game.width(5) //ancho
   game.height(7) //altura
