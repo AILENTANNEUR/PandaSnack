@@ -1,6 +1,6 @@
 **PANDA SNACK**  
 El juego consiste en alimentar a nuestro tierno pero particular personaje. Para ganar y satisfacer su enorme apetito, debes pasar por tres niveles y alcanzar un total de 30 puntos.   
-![Pantalla][assets/portada_readme]
+![Pantalla](assets/portada_readme.jpeg)
 
 **🐼 Nuestros Protagonistas** 
 
