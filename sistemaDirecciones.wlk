@@ -13,9 +13,10 @@ object tablero {
 }
 
 object derecha {
-    method siguiente(position, pasos) = tablero.validada(position.right(pasos), position)
+    method siguiente(position) = tablero.validada(position.right(1), position)
+    method opuesta() = izquierda
 }
 object izquierda {
-    method siguiente(position, pasos) = tablero.validada(position.left(pasos), position)
+    method siguiente(position) = tablero.validada(position.left(1), position)
+    method opuesta() = derecha
 }
-

@@ -20,9 +20,9 @@ object panda {
     method image() = genero.prefijo() + estado.imagen() + ".png"
     method vida() = vida
 
-    // Movimiento: la cantidad de pasos la decide el estado actual
+    // Movimiento: cómo se desplaza lo decide el estado actual
     method mover(direccion) {
-        position = direccion.siguiente(position, estado.pasos())
+        position = estado.desplazar(direccion, position)
     }
 
     // Puntos y vidas

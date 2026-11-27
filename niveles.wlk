@@ -1,47 +1,46 @@
 import panda.*
 
-object nivel {
-    var property numeroDeNivel = 1
+class Nivel {
+    const property numeroDeNivel
+    const property ticks
+    const property puntosParaSubir
+    const property porcentajeBambu
+    const property porcentajeDumpling
 
-    method ticks(){
-      return 2300 - ( 500 * numeroDeNivel )// 1800, 1300, 800
-    }
+    // Cada nivel decide cuál es el que sigue
+    method siguiente()
 
-    method puntosParaSubir() {
-      return 10 * numeroDeNivel // 10, 20, 30
-    }
+    method puedeSubir(puntos) = puntos >= puntosParaSubir
+}
 
-    method porcentajeBambu() {
-      return 45 - (5 * numeroDeNivel)// 40, 35, 30
-    }
+object nivel1 inherits Nivel(numeroDeNivel = 1, ticks = 1800, puntosParaSubir = 10, porcentajeBambu = 40, porcentajeDumpling = 9) {
+    override method siguiente() = nivel2
+}
 
-    method porcentajeDumpling() {
-      return 12 - (3 * numeroDeNivel)// 9, 6, 3
-    }
+object nivel2 inherits Nivel(numeroDeNivel = 2, ticks = 1300, puntosParaSubir = 20, porcentajeBambu = 35, porcentajeDumpling = 6) {
+    override method siguiente() = nivel3
+}
 
-    method siguiente(){
-      numeroDeNivel += 1 
-    }
-
-    method reiniciar(){ 
-    numeroDeNivel = 1 
-    }
-
-    method esUltimo()  = numeroDeNivel == 3
-    
+object nivel3 inherits Nivel(numeroDeNivel = 3, ticks = 800, puntosParaSubir = 30, porcentajeBambu = 30, porcentajeDumpling = 3) {
+    // Último nivel
+    override method siguiente() = self
+    override method puedeSubir(puntos) = false
 }
 
 object controlDeNiveles {
-    method nivelActual() = nivel
+    var actual = nivel1
 
-    method ticksDeNivel() = nivel.ticks()
+    method nivelActual() = actual
+    method ticksDeNivel() = actual.ticks()
 
-    method reiniciar() { nivel.reiniciar() }
+    method reiniciar() {
+        actual = nivel1
+    }
 
     method proximoNivel() {
-        if (!nivel.esUltimo() and panda.puntosSumados() >= nivel.puntosParaSubir()) {
-            nivel.siguiente()
-            console.println("Nivel " + nivel.numeroDeNivel())
+        if (actual.puedeSubir(panda.puntosSumados())) {
+            actual = actual.siguiente()
+            console.println("Nivel " + actual.numeroDeNivel())
         }
     }
 }

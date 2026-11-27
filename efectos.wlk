@@ -2,17 +2,31 @@ import sistemaDeFondo.*
 
 class Efecto {
     const property imagen
-    const property pasos
     const property duracion
     method alAplicar() {}
+
+    // Por defecto: un paso en la dirección pedida
+    method desplazar(direccion, position) = direccion.siguiente(position)
 }
 
-object normal       inherits Efecto(imagen = "inicio",       pasos = 1,  duracion = 0) {}
-object erratico     inherits Efecto(imagen = "exp_rojo",     pasos = 2,  duracion = 5000) {}
-object desorientado inherits Efecto(imagen = "desorientado", pasos = -1, duracion = 5000) {}
-object vestido      inherits Efecto(imagen = "con_ropa",     pasos = 1,  duracion = 10000) {}
-object enfermo      inherits Efecto(imagen = "enfermo",      pasos = 0,  duracion = 5000) {}
+object normal inherits Efecto(imagen = "inicio", duracion = 0) {}
 
-object congelado inherits Efecto(imagen = "helado", pasos = 1, duracion = 10000) {
+object vestido inherits Efecto(imagen = "con_ropa", duracion = 10000) {}
+
+object erratico inherits Efecto(imagen = "exp_rojo", duracion = 5000) {
+    override method desplazar(direccion, position) =
+        direccion.siguiente(direccion.siguiente(position))
+}
+
+object desorientado inherits Efecto(imagen = "desorientado", duracion = 5000) {
+    override method desplazar(direccion, position) =
+        direccion.opuesta().siguiente(position)
+}
+
+object enfermo inherits Efecto(imagen = "enfermo", duracion = 5000) {
+    override method desplazar(direccion, position) = position
+}
+
+object congelado inherits Efecto(imagen = "helado", duracion = 10000) {
     override method alAplicar() { fondoNiveles.congelar(duracion) }
 }

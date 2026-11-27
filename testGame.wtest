@@ -220,6 +220,43 @@ describe "Los efectos no se superponen" {
     assert.equals("panda_con_ropa.png", panda.image())
   }
 }
+describe "Niveles" {
+  test "Empieza en el nivel 1" {
+    assert.equals(1, controlDeNiveles.nivelActual().numeroDeNivel())
+  }
+  test "Pasa al nivel 2 cuando se llega a 10 puntos" {
+    panda.puntosSumados(10)
+    controlDeNiveles.proximoNivel()
+    assert.equals(2, controlDeNiveles.nivelActual().numeroDeNivel())
+  }
+  test "No pasa de nivel con menos puntos de los necesarios" {
+    panda.puntosSumados(9)
+    controlDeNiveles.proximoNivel()
+    assert.equals(1, controlDeNiveles.nivelActual().numeroDeNivel())
+  }
+  test "Cuando se reinicia vuelve al nivel 1" {
+    panda.puntosSumados(100)
+    controlDeNiveles.proximoNivel()
+    controlDeNiveles.reiniciar()
+    assert.equals(1, controlDeNiveles.nivelActual().numeroDeNivel())
+  }
+  test "La comida cae mas rapido en cada nivel" {
+    assert.equals(1800, controlDeNiveles.ticksDeNivel())
+    panda.puntosSumados(10)
+    controlDeNiveles.proximoNivel()
+    assert.equals(1300, controlDeNiveles.ticksDeNivel())
+    panda.puntosSumados(20)
+    controlDeNiveles.proximoNivel()
+    assert.equals(800, controlDeNiveles.ticksDeNivel())
+  }
+  test "El nivel 3 es el ultimo y no sube mas" {
+    panda.puntosSumados(100)
+    controlDeNiveles.proximoNivel()
+    controlDeNiveles.proximoNivel()
+    controlDeNiveles.proximoNivel()
+    assert.equals(3, controlDeNiveles.nivelActual().numeroDeNivel())
+  }
+}
 describe "Fondos de niveles"{
   const posicionComida = game.at(2,0)
   test "Empieza descongelado" {
@@ -301,49 +338,6 @@ test "Con efecto erratico, cerca del borde no puede moverse" {
   assert.equals(game.at(3,0), panda.position())
 }
 } 
-describe "Niveles"{
-  test "Empieza en el nivel 1" {
-    assert.equals(1, controlDeNiveles.nivelActual().numeroDeNivel())
-  }
-  test "Pasa al nivel 2 cuando se llega a 10 puntos" {
-    panda.puntosSumados(10)
-    controlDeNiveles.proximoNivel()
-    assert.equals(2, controlDeNiveles.nivelActual().numeroDeNivel())
-  }
-  test "No pasa de nivel con menos puntos de los necesarios" {
-    panda.puntosSumados(9)
-    controlDeNiveles.proximoNivel()
-    assert.equals(1, controlDeNiveles.nivelActual().numeroDeNivel())
-  }
-  test "Cuando se reiniciar vuelve al nivel 1" {
-    panda.puntosSumados(100)
-    controlDeNiveles.proximoNivel()
-    controlDeNiveles.reiniciar()
-    assert.equals(1, controlDeNiveles.nivelActual().numeroDeNivel())
-  }
-  test "La comida cae mas rapido en cada nivel" {
-    assert.equals(1800, controlDeNiveles.ticksDeNivel())
-    nivel.siguiente()
-    assert.equals(1300, controlDeNiveles.ticksDeNivel())
-    nivel.siguiente()
-    assert.equals(800, controlDeNiveles.ticksDeNivel())
-  }
-  test "Los puntos para subir son 10, 20 y 30" {
-    assert.equals(10, nivel.puntosParaSubir())
-    nivel.siguiente()
-    assert.equals(20, nivel.puntosParaSubir())
-    nivel.siguiente()
-    assert.equals(30, nivel.puntosParaSubir())
-  }
-  test "El nivel 3 es el ultimo" {
-    assert.notThat(nivel.esUltimo())
-    nivel.siguiente()
-    assert.notThat(nivel.esUltimo())
-    nivel.siguiente()
-    assert.that(nivel.esUltimo())
-  }
-
-}
 describe "Fabrica de comida" {
   const posicion = game.at(2,6)
 
@@ -356,6 +350,7 @@ describe "Fabrica de comida" {
   test "Probabilidad alta de una comida" {
     assert.equals("Comida_hongo.png", fabricaDeComida.determinarTipoDeComida(100, posicion).image())
   }
+  
 }
 describe "Contadores en pantalla" {
   test "El contador de vidas muestra las vidas actuales" {
